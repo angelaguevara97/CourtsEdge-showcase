@@ -73,3 +73,42 @@ Public examples are illustrative and should not be interpreted as an exact repro
 Created by **Angel Guevara** as an independent personal project.
 
 CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
+
+## Run the Sample Analysis
+
+Requires Python 3. No external packages or API credentials are needed.
+
+Download and extract this repository, open a terminal in the extracted folder, and run:
+
+```bash
+python3 analysis/hit_rate.py
+```
+
+Expected output:
+
+```text
+Source rows: 7
+Identical duplicates removed: 1
+Selected games: 6 of 6 requested
+Games above 20.5: 4 of 6
+Historical hit rate: 66.7%
+Synthetic historical sample; not a prediction.
+```
+
+The sample contains seven fictional records, including one intentional duplicate. The script removes the identical duplicate before selecting the six-game window.
+
+Without duplicate removal, counting all seven rows would incorrectly produce 5 of 7 (71.4%). The correct six-game result is 4 of 6 (66.7%).
+
+Conflicting duplicate records and invalid selected values stop the calculation for review.
+
+### Explore the Evidence
+
+- [Workflow, design decisions, and acceptance criteria](docs/workflow.md)
+- [Synthetic sample dataset](data/synthetic_player_games.csv)
+- [Python analysis script](analysis/hit_rate.py)
+
+### Verification and Limitations
+
+The baseline sample was run successfully on macOS and produced the output above. Edge-case checks have not yet been independently tested.
+
+This script demonstrates a historical calculation and basic validation. It does not retrieve live data, enforce API limits, check freshness, or predict future performance.
