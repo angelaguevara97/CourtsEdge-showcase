@@ -106,6 +106,7 @@ Conflicting duplicate records and invalid selected values stop the calculation f
 - [Workflow, design decisions, and acceptance criteria](docs/workflow.md)
 - [Synthetic sample dataset](data/synthetic_player_games.csv)
 - [Python analysis script](analysis/hit_rate.py)
+- [Product requirements and acceptance examples](docs/product-requirements.md)
 
 ### Verification and Limitations
 
