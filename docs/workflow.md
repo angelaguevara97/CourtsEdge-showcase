@@ -5,6 +5,11 @@
 This document describes an illustrative workflow for the public CourtsEdge showcase. It explains the reasoning behind data retrieval, validation, and analysis without exposing the private application's implementation.
 
 The public example uses synthetic data. External API calls shown in this design are conceptual, not live integrations in this repository.
+## Public Sample Behavior
+
+The diagram below describes a broader conceptual workflow, including proposed partial-coverage handling. The public Python sample uses a stricter approach: conflicting duplicates or missing/invalid selected statistics stop the calculation for review. It does not exclude those records and continue calculating.
+
+The sample implements historical filtering, identical-duplicate removal, window selection, value checks, and summary calculations. Live retrieval, freshness checks, and partial-coverage displays are design concepts.
 
 ## Workflow
 
@@ -108,7 +113,7 @@ Exact refresh intervals and stale-data thresholds depend on the source and use c
 | Data is older than the defined freshness threshold | Show a stale-data notice |
 | Game occurs after the analysis cutoff | Exclude it from the historical sample |
 
-These are intended acceptance criteria. Executable validation examples will be added separately.
+These are conceptual acceptance criteria for the broader workflow. The README documents three checks run against the public script: the baseline result, conflicting duplicates, and a missing selected statistic. Other scenarios remain unverified.
 
 ## Tradeoffs
 
