@@ -109,6 +109,14 @@ Conflicting duplicate records and invalid selected values stop the calculation f
 
 ### Verification and Limitations
 
-The baseline sample was run successfully on macOS and produced the output above. Edge-case checks have not yet been independently tested.
+The following checks were run successfully on macOS:
+
+| Check | Observed result |
+|---|---|
+| Baseline dataset with one identical duplicate | Removed the duplicate; returned 4 of 6 games (66.7%) |
+| Conflicting point totals for the same player/game/statistic | Stopped with a review-required error |
+| Missing statistic in a selected game | Stopped with a review-required error; produced no percentage |
+
+The two error checks used temporary CSV copies. The original sample dataset was unchanged. These checks cover the listed scenarios, not every acceptance criterion in the workflow document.
 
 This script demonstrates a historical calculation and basic validation. It does not retrieve live data, enforce API limits, check freshness, or predict future performance.
