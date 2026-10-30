@@ -16,6 +16,40 @@ NFL views use position-relevant statistics, including passing, rushing, receivin
 
 Selectable recent-game windows from one through eight games support comparisons across different recent samples.
 
+## Date and Game Selection
+
+Users can browse the next seven days, select Today or Tomorrow, or choose a specific date.
+
+Matchup cards show the teams, scheduled start time, game status, and NFL week. Selecting a card opens the corresponding matchup analysis.
+
+Shared-data controls let users reload available server data. The interface also displays refresh timing and provides the globally limited Refresh All Props fallback.
+
+## Position and Opponent Filters
+
+NFL player tables are organized by position, including quarterback, running back, wide receiver, tight end, and kicker.
+
+Position filters narrow the displayed players. An opponent-sample selector controls the historical comparison sample.
+
+Player statistics show the available opponent-game count alongside the comparison average. Season averages remain visible for context, and expandable bench sections provide additional roster detail.
+
+## Shared-Opponent Comparisons
+
+Users can select a shared opponent to compare how both teams performed against that team.
+
+The selected comparison updates the relevant historical scores and player averages. Sportsbook odds and defensive simulations remain tied to the scheduled matchup rather than switching to the historical comparison opponent.
+
+A separate Common Opponents section supports season-range and statistical-category selection. It displays shared-opponent counts, opponent-season comparisons, team game counts, production differences, and expandable scores and dates.
+
+Comparison estimates summarize historical evidence. They are not calibrated win probabilities.
+
+## Market Availability
+
+The feed displays moneyline, spread, total, and available player props with sportsbook names, thresholds, and prices.
+
+Player markets appear alongside the relevant statistical categories. When a line has not been supplied, the interface can display “Awaiting published lines.”
+
+Anytime touchdown statistics count rushing or receiving touchdowns. Passing touchdowns remain a separate category.
+
 ## Visual Signal Reference
 
 Users can hover over or tap an emoji to see its explanation. Meaning depends on whether the indicator accompanies a team, player, or matchup.
