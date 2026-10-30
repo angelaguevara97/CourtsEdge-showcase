@@ -88,6 +88,8 @@ Games that have started are excluded from new pregame generation and replacement
 
 ## API Refresh and Shared Data
 
+Both automated background refreshes and browser-based refresh loops are active. Background refreshes run independently of an open browser, while browser loops run while the page remains open. Successful updates refresh shared server data for visitors.
+
 Sportsbook props are not always published far in advance. A matchup can exist in the schedule before its player markets become available.
 
 CourtsEdge combines several refresh paths:
