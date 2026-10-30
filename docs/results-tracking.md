@@ -153,7 +153,7 @@ The evaluation dataset should document its inclusion rules, save boundaries, dup
 
 Preserving the pregame probability, market price, contextual inputs, and model version provides the foundation for later calibration and version comparisons.
 
-Calibration dashboards, automated probability-quality metrics, and controlled X-factor comparisons remain part of the ongoing evaluation work.
+Probability Test includes a results dashboard with probability buckets and breakdowns by model version, sport, and market. Additional probability-quality metrics, chronological validation, and controlled X-factor comparisons remain ongoing evaluation work.
 
 A collection of winning tickets alone cannot validate probability estimates.
 
