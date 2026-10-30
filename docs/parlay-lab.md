@@ -27,6 +27,45 @@ Available approaches include historical consistency tiers, season-only analysis,
 
 Historical hit rates describe past observations. They are not predicted win probabilities for individual selections or complete parlays. Strategy thresholds and sample sizes must be interpreted together.
 
+## Strategy Rules and Game Windows
+
+Standard generation supports two through six legs. Feeling Lucky builds a 10–14-leg combination.
+
+NBA generation uses today's upcoming games. NFL SGP and multi-game generation use the next seven days. Feeling Lucky can combine NBA games scheduled today with NFL games through Sunday of the current Monday–Sunday week.
+
+Games that have already started are excluded.
+
+| Approach | Qualification |
+| --- | --- |
+| 90%+ historical hits | At least 15 relevant appearances, at least 90% hits across the selected sample and last 10, and negative individual odds |
+| 80% Historical Hit Rate | At least 15 relevant appearances, at least 80% hits across the selected sample and last 10, and negative individual odds |
+| 66.7% historical odds 2026 | At least five recorded 2026 regular-season games and 66.7–100% hits at the exact offered threshold |
+| Longer odds | 50–75% historical hits, with individual odds capped at +300 |
+| Feeling Lucky | Non-touchdown legs use 50–75% historical hits and a +300 individual price cap; scorer-touchdown legs use 50–100% historical hits |
+| History versus price | Weighs historical results against the available price |
+
+Historical strategies use up to the last 20 relevant games. Minimum sample and recent-consistency requirements depend on the approach.
+
+Unqualified slots remain empty. In the 90% approach, users can explicitly request optional favorite fills requiring at least 70% historical hits across both comparison samples and negative odds. These selections are labeled below the 90% standard.
+
+### NFL Touchdown Approaches
+
+Anytime TD scorers uses rushing or receiving touchdowns, with at least five recorded appearances and a touchdown in the last five appearances or a previous opponent meeting.
+
+Any Time Touchdowns Longer Odds evaluates offered 1+, 2+, or 3+ scorer-touchdown thresholds, requiring 50–75% historical hits at the exact threshold across at least five recorded appearances.
+
+Quarterback rushing touchdowns count as scorer touchdowns. Passing touchdowns do not.
+
+### Ticket Editing and Display
+
+Users can add legs, remove individual selections, replace a selection through its dropdown, or request a qualifying similar leg near the original odds at the same sportsbook.
+
+Each leg displays its threshold, price, quote age, historical qualifying count, sample size, and comparison average.
+
+Combined odds and the $10 return/profit example are illustrative calculations from individual leg prices. Actual sportsbook combination pricing can differ.
+
+The combined historical estimate multiplies individual historical frequencies under an independence assumption. It is not a calibrated probability that the ticket will win, particularly when selections share a player or game.
+
 ## Alternate Lines and Market Matching
 
 The selected sportsbook determines the available market pool when its props have been published.
