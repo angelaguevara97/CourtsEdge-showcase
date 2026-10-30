@@ -96,13 +96,65 @@ Position-specific team defense does not establish which individual defender will
 
 Player and game simulations add model-generated estimates alongside observed historical results.
 
-Player analysis incorporates relevant performance and matchup inputs, including recent form, workload, defensive context, and injury information where available.
+The NFL player simulation uses historical resampling adjusted for projected opportunity and opponent allowance. Users can change the selected statistic, over/under threshold, projected opportunities, and whether the defensive adjustment is applied.
+
+The simulation is a descriptive prototype rather than a calibrated betting model. Its displayed methodology excludes snap counts, individual coverage assignments, weather adjustments, and offensive-line adjustments. Injury and depth-chart information provide separate context for exploring workload assumptions.
 
 NFL workload controls allow users to explore assumptions such as carries, targets, and passing attempts.
 
 Game simulations provide matchup estimates such as projected scores, totals, and win probabilities.
 
 Simulation outputs remain distinct from historical averages, observed hit frequencies, and sportsbook implied probabilities.
+
+## Player Analysis Navigation
+
+Selecting a player opens an analysis hub with dedicated views:
+
+- Averages & history
+- Hot / cold
+- Simulation
+- Opponent defense
+- Weather & performance
+
+Navigation between views preserves player context. Back and Home controls support returning to earlier views.
+
+Averages & history displays opponent averages alongside season comparisons and the available opponent-game count. An expandable table exposes individual dated game results.
+
+## Configurable Hot and Cold Exploration
+
+The Hot analysis supports above-season-average, top-10%, and custom-range qualification. Historical scope and minimum/maximum starting-statistic controls allow users to investigate more specific conditions.
+
+Results distinguish the qualifying-game average, average completed streak length, and following-appearance performance.
+
+Continuation summaries cover the next one, two, and three appearances, with qualifying counts and denominators displayed separately. These samples can differ because longer follow-up periods require additional recorded appearances.
+
+Opponent breakdowns show qualifying performance, differences from the comparison baseline, qualifying versus played counts, and small-sample labels.
+
+These are descriptive historical comparisons rather than calibrated future probabilities.
+
+## NFL Weather and Performance
+
+The weather view places three comparisons alongside each other:
+
+- Performance in matching historical weather conditions
+- Historical performance against the selected opponent
+- Season performance
+
+Each comparison displays its available sample. Weather samples identify their temperature interval and account for rain or snow when forecast.
+
+Forecast context covers kickoff through the following three hours; longer-range forecasts may use six-hour intervals. Historical opponent comparisons use the player's current-team stint.
+
+Users can switch between the two matchup teams. Weather comparisons remain separate from the player simulation's inputs.
+
+## NFL Defensive Adjustment
+
+The opponent-defense view supports the current-season window and recent windows of three, five, or eight official games.
+
+It compares production allowed to the selected position with league allowance and displays the defensive sample and ranking convention.
+
+The displayed methodology blends the allowance ratio toward neutral using n / (n + 5), then caps the adjustment at ±25%.
+
+Position totals include all recorded players at that position in each opponent game. They do not represent individual defender assignments. Small defensive samples are identified explicitly.
 
 ## Sportsbook Threshold Context
 
