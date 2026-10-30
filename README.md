@@ -74,6 +74,17 @@ Created by **Angel Guevara** as an independent personal project.
 
 CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
 
+## Parlay Lab
+
+The private application includes an NBA/NFL Parlay Lab that combines historical player performance with available sportsbook markets.
+
+Users can select a sportsbook, choose a single-game or multi-game combination, apply a historical analysis strategy, replace individual legs, and open a matched sportsbook ticket for review.
+
+The workflow uses shared API data, scheduled refreshes, targeted updates near game time, and a globally limited manual refresh fallback. Historical hit rates describe past observations, not the probability that a generated parlay will win.
+
+[Explore the Parlay Lab workflow and design](docs/parlay-lab.md)
+
+Parlay Lab belongs to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
 ## Run the Sample Analysis
 
 Requires Python 3. No external packages or API credentials are needed.
