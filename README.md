@@ -74,6 +74,14 @@ Created by **Angel Guevara** as an independent personal project.
 
 CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
 
+## Game Feed and Visual Signals
+
+The Game Feed brings NBA/NFL matchups, player statistics, recent averages, injuries, and historical signals into one interface.
+
+Interactive Hot, Cold, and opponent-specific indicators connect users to the relevant Dive Deeper analysis. Explanatory labels clarify team streaks, touchdown history, limited samples, and NFL weather context.
+
+[Explore the Game Feed and visual signals](docs/game-feed.md)
+
 ## Parlay Lab
 
 The private application includes an NBA/NFL Parlay Lab that combines historical player performance with available sportsbook markets.
