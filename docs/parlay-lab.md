@@ -37,6 +37,8 @@ The ticket integration searches for available matches, including nearby lines wh
 
 The sportsbook options currently exposed in the application are DraftKings, FanDuel, BetMGM, and Caesars. Market coverage and ticket-link availability depend on the provider and sportsbook.
 
+An exact threshold match and a nearest available threshold are distinct outcomes. If the sportsbook ticket uses a different threshold, the original historical rate or model estimate does not automatically apply to that replacement. The matched threshold must be shown explicitly, and analytical values must be recalculated for it or identified as belonging to the original selection.
+
 ## Editing and Eligibility
 
 Individual-leg replacement preserves the rest of the ticket while searching for a compatible alternative. Full regeneration rebuilds the combination.
