@@ -116,6 +116,13 @@ X-factor snapshots preserve signals such as Hot status, opponent history, streak
 
 [Explore saved parlays, grading, and X-factor tracking](docs/results-tracking.md)
 
+## Architecture and Shared Data
+
+CourtsEdge uses shared server data to connect historical analysis, matchup exploration, sportsbook markets, and postgame grading.
+
+Broad scheduled refreshes, targeted updates near game time, and a globally limited manual fallback coordinate retrieval within provider quotas.
+
+[Explore the architecture and shared data workflows](docs/architecture.md)
 
 ## Run the Sample Analysis
 
