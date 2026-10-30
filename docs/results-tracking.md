@@ -112,7 +112,13 @@ Generation time and the date of the last relevant game serve different purposes:
 
 Individual selections and their results make each displayed winner inspectable.
 
-Win counters describe the displayed successful records. They do not establish an overall success rate without the corresponding prediction totals and losing outcomes.
+Category counters show wins divided by saved slips. Pending or unresolved slips are identified separately and can remain in the saved-slip denominator, so these counters are not resolved-ticket win rates.
+
+Records are grouped by the date of their last game and by strategy. Test slips are displayed separately from community slips.
+
+Expandable winning records show the original selections, saved individual prices, and recorded results.
+
+Displayed $10 returns and potential profit are illustrative calculations based on saved leg prices. They do not establish that a wager was placed or that a sportsbook offered or paid the calculated combined return.
 
 ## Complete Results and Evaluation
 
