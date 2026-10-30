@@ -85,11 +85,11 @@ The workflow uses shared API data, scheduled refreshes, targeted updates near ga
 
 ## Probability Test — BETA
 
-Probability Test is a working experimental NBA/NFL modeling feature that combines current-season performance, recent form, usage, matchup context, and sportsbook thresholds to estimate event probabilities.
+Probability Test is a working experimental NBA/NFL feature. Its current v2 baseline uses smoothed threshold-hit counts from eligible 2026 games to estimate event probabilities and compare them with available sportsbook prices.
 
 It distinguishes historical hit rates, model estimates, market-implied probabilities, fair odds, and estimated edge.
 
-Its evaluation framework centers on pregame prediction snapshots, postgame grading, calibration, and model-version comparisons. Calibration improvements and automated evaluation metrics remain ongoing development work. No validated accuracy or profitability is claimed.
+Pregame prediction records feed postgame grading and a dashboard with results by model version, sport, market, and probability bucket. Further calibration metrics and chronological validation remain development work. No validated accuracy or profitability is claimed.
 
 [Explore Probability Test and its evaluation workflow](docs/probability-test.md)
 
