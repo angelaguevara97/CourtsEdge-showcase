@@ -85,6 +85,17 @@ The workflow uses shared API data, scheduled refreshes, targeted updates near ga
 [Explore the Parlay Lab workflow and design](docs/parlay-lab.md)
 
 Parlay Lab belongs to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
+
+## Dive Deeper
+
+Dive Deeper connects interactive game-feed indicators with the analysis behind them. Selecting a player’s Hot, Cold, or opponent-specific signal opens the relevant matchup context and historical evidence.
+
+Users can inspect recent games, comparable streaks, following-game outcomes, opponent history, and sample sizes. NBA and NFL analysis also includes injuries, matchup context, player and game simulations, and NFL positional defense and workload adjustments.
+
+The private application retrieves data from the server. Historical observations and simulated estimates remain clearly distinguished.
+
+[Explore Dive Deeper analysis and game feed integration](docs/dive-deeper.md)
+
 ## Run the Sample Analysis
 
 Requires Python 3. No external packages or API credentials are needed.
