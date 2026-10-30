@@ -12,6 +12,16 @@ Moving data retrieval and application logic to the server reduces the amount of 
 
 Information displayed in a browser can still be inspected or copied. Server-side processing protects private implementation details; it does not make displayed information inaccessible.
 
+## Design for Additional Sports
+
+CourtsEdge currently supports NBA and NFL workflows. Its underlying application structure is designed to accommodate additional sports, including NHL, MLB, and MLS.
+
+Shared concepts include game selection, player and team identity, historical comparisons, contextual navigation, market matching, prediction snapshots, and result grading.
+
+Each additional sport requires its own data integration, statistical categories, analytical rules, market definitions, and grading behavior. The shared structure provides a foundation for expansion; it does not imply that NBA or NFL modeling assumptions transfer directly to other sports.
+
+NHL, MLB, and MLS are expansion targets rather than currently supported application features.
+
 ## Shared Data Across Features
 
 Sports statistics, game information, sportsbook markets, and relevant contextual data support multiple application features.
