@@ -53,9 +53,9 @@ Users can open features directly. The diagram does not imply that every user mus
 
 ## Shared Refresh Architecture
 
-Provider requests are coordinated through shared server data rather than independently retrieving the same information for every user.
+CourtsEdge combines automated background refreshes with browser-based refresh loops that run while the page remains open. Both update shared server data used by visitors.
 
-The props workflow combines broad scheduled refreshes with smaller targeted updates near game time.
+Broad refreshes, targeted updates near game time, and a globally limited manual fallback work together to maintain available sportsbook data within provider quotas.
 
 The documented schedule is:
 
