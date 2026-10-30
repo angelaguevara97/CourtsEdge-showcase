@@ -1,202 +1,193 @@
 # Probability Test — BETA
 
-Probability Test is CourtsEdge's working experimental probability-modeling environment for NBA and NFL events.
+Probability Test is CourtsEdge's working experimental NBA/NFL probability environment.
 
-It uses historical performance and current matchup context to generate forward-looking estimates for specific player markets and thresholds.
+The current implementation, Probability Model v2 · 2026 baseline, estimates threshold outcomes from eligible 2026 game results, compares those estimates with sportsbook prices, saves predictions before games, and grades available results.
 
-The central research question is whether those estimates correspond to observed outcomes over time. The evaluation workflow connects pregame prediction snapshots, postgame grading, calibration analysis, and model revisions.
+The beta includes individual-prop testing, experimental parlay construction, saved prediction records, and an evaluation dashboard.
 
-The feature remains under development and evaluation. It is not considered fully calibrated, and no validated profitability or predictive-performance claim is made.
+Model estimates remain experimental. The application does not place wagers, and no validated predictive advantage or profitability is claimed.
 
-Production code and underlying datasets remain private.
+## Current Model Methodology
 
-## Why This Feature Exists
+The current estimate is:
 
-Historical frequency and future probability answer different questions.
+Probability = (threshold hits + 1) / (eligible games + 2)
 
-A player exceeding a threshold in 18 of the last 20 games establishes a 90% historical hit rate. It does not automatically establish a 90% probability for the next game.
+This smoothing prevents a perfect historical sample from becoming a 100% estimate.
 
-The next matchup may involve different usage, injuries, teammates, defensive conditions, or a different sportsbook threshold.
+For example, five hits in five eligible games produces:
 
-Probability Test explores how those conditions can inform an experimental estimate.
+6 / 7 = 85.7%
 
-## Relationship to Other Features
+This is a model estimate derived from historical counts, not a calibrated guarantee for the next game.
 
-[Parlay Lab](parlay-lab.md) uses historical qualification strategies and available sportsbook markets to construct combinations.
+The displayed 2026 average comes from the same eligible observations. It provides context and is not counted again as an independent probability signal.
 
-[Dive Deeper](dive-deeper.md) explains historical signals through recent games, streaks, opponent comparisons, and matchup context.
+The current model does not apply separate recent-game weighting, opponent, injury, usage, home/away, or environmental adjustments.
 
-Probability Test adds an optional experimental modeling layer. It operates alongside the historical engine without replacing its qualification rules.
+## Eligible Historical Data
 
-## Inputs and Thresholds
+NFL analysis uses the 2026 season, excluding prior-season playoff games played in January 2026.
 
-The beta combines current-season performance with relevant recent form, player usage, opponent information, positional defense, injuries, and role context.
+NBA analysis uses official games dated in calendar year 2026. This is a calendar-year definition rather than an NBA season definition.
 
-The 2026-focused analysis keeps current-season observations distinct from the standard historical engine's last-20-game window, which can cross seasons.
+Preseason and future games are excluded. The model does not backfill older periods to meet its minimum sample.
 
-NFL inputs concern opportunity and production, including attempts, carries, targets, receptions, yards, and touchdowns where available.
+At least five eligible games are required for individual props and both parlay types.
 
-NBA inputs include minutes, attempts, scoring, rebounds, assists, starting status, and lineup context where available.
+## Confidence and Evidence
 
-Feature availability varies by sport, market, and provider coverage. Feature selection and weighting continue to evolve during beta development.
+Samples below 15 games remain Low confidence.
 
-Each estimate applies to a specific player, market, side, and threshold. Over 49.5 receiving yards is a different event from Over 59.5 receiving yards.
+Older quote and history timestamps can lower confidence without changing the underlying probability estimate.
 
-## Model and Market Outputs
+The evidence panel exposes the calculation, eligible sample, historical period, limitations, and odds timestamp.
 
-The following values have separate meanings:
+An evidence score describes the system's evidence assessment. It is distinct from event probability and is not a statistical confidence interval.
+
+## User Workflow
+
+Users select NBA or NFL, choose SGP or multi-game Parlay, and select Conservative, Balanced, or Longshot.
+
+In SGP mode, users select the game.
+
+Available standard and alternate lines are considered together. No fixed mixture is required, and unavailable thresholds or prices are not invented.
+
+Build & save creates a two- or three-leg experimental combination at one sportsbook when sufficient candidates qualify.
+
+Test available props saves individual predictions without requiring a parlay. Reload saved results retrieves the stored evaluation records.
+
+## Threshold and Market Identity
+
+Each prediction identifies the player, game, market, side, threshold, sportsbook, and quoted price.
+
+Over an integer threshold means strictly greater than that value. An N+ selection means at least N.
+
+Alternate thresholds are evaluated separately.
+
+The tested-prop explorer supports filtering by player, game, sportsbook, or prop. A test retains up to 200 predictions ranked by estimated edge.
+
+## Outputs and Market Comparison
+
+The interface distinguishes:
 
 | Output | Meaning |
 | --- | --- |
-| Historical hit rate | Observed frequency in the selected historical sample |
-| Model probability | Experimental estimate for the upcoming event |
-| Sportsbook implied probability | Probability derived from the quoted market price |
-| Fair odds | Theoretical price corresponding to the model estimate |
-| Estimated edge | Model probability minus market-implied probability |
-| Confidence | Indicator of estimate quality given data and model conditions |
+| Historical hits | Qualifying outcomes divided by eligible observations |
+| Estimated probability | Smoothed threshold estimate from the current model |
+| Fair odds | Theoretical odds corresponding to the estimated win probability |
+| Market implied probability | Probability derived from the recorded sportsbook price |
+| Edge | Model probability minus market implied probability, in percentage points |
+| EV per $1 | Model-based expected net return using the quoted price |
+| Confidence | Assessment of sample and data conditions |
 
-Raw sportsbook implied probabilities include bookmaker margin. Margin removal remains a development area where suitable market data is available.
+Raw market implied probabilities include bookmaker margin.
 
-Estimated edge is expressed in percentage points. It is not equivalent to expected return or proof of a profitable opportunity.
+The Top probability edges view requires at least five eligible games, estimated probability of at least 60%, edge of at least three percentage points, and positive estimated EV.
 
-Confidence is distinct from event probability. Sample size, missing inputs, role changes, and uncertain injury information affect how an estimate should be interpreted.
+These are selection criteria, not evidence that the model has a validated advantage.
 
-## Pregame Snapshot and Postgame Grading
+For integer-line markets, the displayed fair odds correspond to win probability and are not push-adjusted break-even odds.
 
-The prediction-storage and grading architecture establishes the foundation for evaluating the beta.
+## Combination Estimates
 
-A pregame snapshot preserves the prediction and the information associated with it before the event occurs.
+Same-game selections are not treated as automatically independent.
 
-Relevant fields include:
+Within each game, the model uses a Fréchet lower bound as a conservative joint-outcome scenario:
 
-- Prediction timestamp and model version
-- Sport, game, and player identifiers
-- Market, side, and threshold
-- Sportsbook and quoted odds
-- Historical frequency and sample information
-- Model probability and market-implied probability
-- Estimated edge and confidence
-- Available contextual inputs
+Maximum of zero and:
+sum of individual probabilities − (number of legs − 1)
 
-The original prediction-time price remains associated with the prediction. A later market price must not replace it retrospectively.
+This is a mathematical bound given the marginal estimates, not an empirically fitted correlation model. Its usefulness still depends on the quality of those estimates.
 
-After the game is finalized, the saved selection can be matched with the actual result and graded.
+Across games, independence remains an assumption.
 
-Grading records must distinguish resolved hits and misses from pushes, voids, cancellations, and unavailable results. Unresolved records should remain visible rather than silently disappearing from evaluation.
+## Pregame Prediction Records
 
-A pregame timestamp establishes when an estimate was recorded. Strong out-of-sample evaluation additionally requires that model tuning and feature construction exclude future information.
+Generated tests save prediction records before the associated games begin.
 
-## Calibration and Evaluation
+Stored records expose the save timestamp, model version, selection, probability, recorded odds, sportsbook, result, and parlay association.
 
-The evaluation objective is to determine whether assigned probabilities match observed frequencies over sufficiently large samples.
+Prediction values remain unchanged during grading. Saved predictions from earlier model versions retain their original estimates and version identity.
 
-For example, events assigned probabilities near 70% should occur approximately 70% of the time across a suitable evaluation sample.
+A stored timestamp helps establish prediction timing. It does not by itself prove that historical features were free from leakage or that the evaluation sample is independent.
 
-A single successful prediction does not demonstrate calibration. Counting wins alone does not establish the quality of probability estimates.
+## Grading and Results Dashboard
 
-The evaluation plan includes:
+Grading reuses finalized box scores and settled outcomes already cached by CourtsEdge. It does not require new result requests for this grading workflow.
 
-- Probability buckets with prediction counts and observed frequencies
-- Mean predicted probability within each bucket
-- Brier Score for binary probability error
-- Log loss to assess confident incorrect predictions
-- Results separated by sport, market, and model version
-- Sample sizes and unresolved-result counts
+Unavailable statistics remain pending. Pushes are reported separately.
 
-Brier Score averages the squared difference between predicted probability and the binary outcome. Log loss places a stronger penalty on confidently incorrect estimates.
+The dashboard displays:
 
-Automated calibration dashboards, Brier Score tracking, and log-loss tracking remain roadmap work. This guide does not present completed measurements for them.
+- Predictions saved and tested
+- Wins, losses, and pushes
+- Resolved hit rate
+- Average estimated probability across saved records
+- Simulated single-selection ROI
+- Complete parlays won versus resolved
+- Separate SGP and multi-game results
+- Breakdowns by model version, sport, and prop type
+- Probability-range calibration summaries
+- Individual saved prediction records
 
-Evaluation should retain losing predictions as well as winners. A promotional Winners view cannot substitute for the complete evaluation dataset.
+The displayed dashboard covers the latest 2,000 records.
 
-## Model Versions and Experiment Tracking
+Repeated tests count separately and are not independent trials. Multiple sportsbook quotes or thresholds can also refer to the same underlying player outcome.
 
-The experimental loop is:
+## Calibration Interpretation
 
-1. Generate and save a pregame prediction.
-2. Observe and grade the finalized result.
-3. Compare predicted probabilities with outcomes.
-4. Identify weaknesses by market, sample, or context.
-5. Revise the model or its features.
-6. Assign a new version and evaluate subsequent predictions.
+Probability buckets compare average estimates with observed win frequency and sample counts.
 
-Model-version comparisons and experiment tracking are being developed so that changes can be assessed without mixing incompatible configurations.
+The current calibration table treats pushes as non-wins, as stated in its heading. That convention must remain explicit when interpreting the figures.
 
-An experiment record should identify the hypothesis, model version, feature changes, evaluation period, results, and decision.
+Average probability across all saved predictions includes unresolved records. It should not be compared directly with resolved hit rate as though both describe the same sample.
 
-A revision should earn its place through evaluation rather than appearing better solely because it was tuned to previously observed results.
+Calibration summaries support investigation. Small, repeated, or concentrated samples do not establish general calibration.
 
-## Chronological Validation
+## Simulated Returns
 
-Walk-forward validation is a planned evaluation method.
+Single-selection ROI uses a flat hypothetical $1 stake and the recorded individual odds.
 
-Under this approach, information available through one period is used to predict the next period. The process then advances chronologically.
+This is a paper calculation, not verified betting-account performance.
 
-This helps prevent later games, postgame injury updates, or season averages containing the predicted game from entering earlier predictions.
+Parlay ROI requires an actual recorded combined price. It remains unavailable when that price was not saved rather than substituting a multiplied approximation.
 
-Historical data used to develop or tune the model must remain distinguishable from data used to assess its performance.
+## Evaluation and Development
 
-## SGP and Multi-Game Experiments
+Existing dashboard summaries provide an initial evaluation framework.
 
-Probability Test supports experimentation with same-game and multi-game combinations.
+Further work includes:
 
-SGP candidates remain tied to the selected matchup. Pregame selection workflows exclude games that have already started.
-
-Individual leg probabilities do not automatically establish a combined parlay probability. Same-game selections can share workload, pace, scoring, and other influences.
-
-Correlation handling remains experimental. Multiplying individual probabilities requires an independence assumption that may be inappropriate for the selected legs.
-
-## Data Architecture
-
-The beta reuses normalized server-side sports and market data within the broader CourtsEdge refresh architecture.
-
-Player, team, event, market, and threshold identifiers connect historical observations, current context, sportsbook quotes, and prediction records.
-
-Shared data retrieval reduces repeated external requests and supports provider quota management.
-
-Missing information must remain distinguishable from a measured zero. Data availability and limited samples are important considerations throughout beta development.
-
-## Current Status and Roadmap
-
-### Working Beta
-
-- Experimental NBA and NFL probability outputs
-- Current-season analysis and sportsbook threshold comparisons
-- Implied probability, fair odds, and estimated edge
-- SGP and multi-game experimentation
-- Pregame prediction-storage and postgame evaluation architecture
-
-### In Progress
-
-- Calibration improvements
-- Correlation handling
-- Confidence criteria and sample protections
-- Injury and workload integration
-- Model-version comparisons
-
-### Planned Evaluation Extensions
-
-- Automated calibration dashboard
 - Brier Score and log-loss tracking
-- Walk-forward validation
-- Market-specific model comparisons
-- Closing-line comparisons
-- Distribution-based and correlated simulation research
+- Chronological and walk-forward validation
+- Duplicate-aware evaluation and uncertainty estimates
+- Comparisons against simple historical and market baselines
+- Controlled model-version comparisons
+- Research into additional contextual features
+- Empirically evaluated dependence modeling
 
-These are development directions, not completed performance results.
+Opponent, injury, workload, and environmental adjustments are potential extensions rather than inputs to the current v2 baseline.
 
-## Known Limitations
+## Relationship to Other Features
 
-Early-season samples, missing usage metrics, uncertain injuries, role changes, provider availability, and sportsbook line movement can affect estimates.
+[Dive Deeper](dive-deeper.md) provides broader historical and matchup exploration. Its available contextual information should not be confused with inputs used by this probability model.
 
-Opponent-specific samples may be small. Historical relationships may change. Correlation modeling and calibration remain unfinished research areas.
+[Parlay Lab](parlay-lab.md) retains its separate historical qualification strategies.
 
-No measured accuracy, validated betting edge, or financial return is claimed in this showcase.
+[Results Tracking](results-tracking.md) explains the broader saved-ticket and grading lifecycle.
 
-## What This Demonstrates
+## Limitations
 
-This feature demonstrates probability reasoning, feature requirements, market-price comparisons, data integration, prediction-record design, and the development of an evaluation framework.
+Small samples, repeated outcomes, stale prices, provider coverage, and changing player roles limit interpretation.
 
-I defined the analytical requirements and experimental workflow, using AI-assisted development to implement and refine the beta.
+Smoothing avoids certainty from a perfect sample but does not establish predictive validity.
 
-The goal is to build a system whose estimates can be recorded, tested, challenged, and improved.
+The current baseline does not adjust for several factors that can influence upcoming performance. Its same-game bound is not a learned correlation model, and cross-game independence remains an assumption.
+
+Dashboard results are preliminary operational observations rather than validated accuracy or profitability claims.
+
+## My Contribution
+
+I defined the workflows, analytical requirements, evidence displays, prediction-record behavior, and evaluation goals, using AI-assisted development to implement and refine the beta.
