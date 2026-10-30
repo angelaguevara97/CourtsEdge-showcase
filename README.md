@@ -106,6 +106,17 @@ Its evaluation framework centers on pregame prediction snapshots, postgame gradi
 
 [Explore Probability Test and its evaluation workflow](docs/probability-test.md)
 
+## Results Tracking and Winners
+
+Finalized parlays are saved with their selections, sportsbook, strategy, original thresholds, and available generation-time analytical context.
+
+Automated postgame grading evaluates individual legs and complete tickets. Qualifying finalized wins appear in Winners, while the broader results records support evaluation.
+
+X-factor snapshots preserve signals such as Hot status, opponent history, streak continuation, defensive context, historical samples, and applicable Probability Test outputs. These records provide a foundation for investigating which factors contribute predictive value.
+
+[Explore saved parlays, grading, and X-factor tracking](docs/results-tracking.md)
+
+
 ## Run the Sample Analysis
 
 Requires Python 3. No external packages or API credentials are needed.
