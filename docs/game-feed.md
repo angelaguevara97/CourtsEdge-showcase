@@ -50,6 +50,23 @@ Player markets appear alongside the relevant statistical categories. When a line
 
 Anytime touchdown statistics count rushing or receiving touchdowns. Passing touchdowns remain a separate category.
 
+## Injuries, Depth Charts, and Potential Replacements
+
+An expandable injury and depth-chart section shows projected starters, player positions, reserves, and the saved update timestamp alongside the scheduled game time.
+
+Projected starters reflect the available depth chart rather than a confirmed game lineup.
+
+Injury-impact cards connect unavailable players with teammates who may receive additional opportunity:
+
+- Red-bordered cards identify injured or unavailable players and their reported status.
+- Green-bordered cards identify potential replacements or workload beneficiaries.
+- Explanations distinguish the next available depth-chart option from a same-position teammate whose replacement role is unconfirmed.
+- Position-specific descriptions identify potential changes in opportunities such as targets, receiving yards, carries, or passing attempts.
+- Replacement-player names open further workload analysis.
+- Reserve injuries remain available in a separate expandable section.
+
+Replacement estimates use roster position, available depth order, availability, and relevant workload information. They identify possible opportunity changes rather than confirmed replacements or guaranteed additional production.
+
 ## Visual Signal Reference
 
 Users can hover over or tap an emoji to see its explanation. Meaning depends on whether the indicator accompanies a team, player, or matchup.
