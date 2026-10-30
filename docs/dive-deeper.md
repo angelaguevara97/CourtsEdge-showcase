@@ -16,7 +16,7 @@ Entry points include:
 - Strong performance against the selected opponent
 - Team winning and losing streaks
 - Head-to-head matchup streaks
-- Recent-average indicators
+- Limited-history indicators showing when fewer games are available for an average
 
 Dive Deeper remains focused on the selected matchup and its players.
 
