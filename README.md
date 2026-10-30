@@ -1,8 +1,8 @@
 # CourtsEdge — Sports Analytics Product Showcase
 
-A case study of an independent personal application built through AI-assisted development, demonstrating business analysis, product requirements, API workflows, and data validation.
+A public case study of an independent NBA/NFL analytics application built through AI-assisted development. CourtsEdge connects historical performance, matchup exploration, sportsbook markets, configurable parlay generation, and automated results tracking, with an experimental probability-modeling beta.
 
-**Status:** Public showcase under construction. The original application and its production source code remain private.
+**Status:** The private application is working, with Probability Test under active beta development. This public showcase includes feature guides, architecture documentation, and a runnable synthetic Python example. Production source code and underlying datasets remain private.
 
 ## The Problem
 
@@ -25,31 +25,18 @@ My contributions included:
 
 This is a personal project, separate from my professional employment. AI-assisted implementation is part of the development process; this project does not represent professional machine-learning engineering experience.
 
-## Application Scope
+## Explore the Application
 
-The private application includes workflows for:
+| Guide | Coverage |
+| --- | --- |
+| [Game Feed](docs/game-feed.md) | Matchups, player statistics, visual signals, and contextual navigation |
+| [Dive Deeper](docs/dive-deeper.md) | Streaks, following-game outcomes, opponent history, and simulations |
+| [Parlay Lab](docs/parlay-lab.md) | Historical strategies, sportsbook markets, alternate lines, and leg replacement |
+| [Probability Test — BETA](docs/probability-test.md) | Experimental probabilities, market comparisons, and evaluation methodology |
+| [Results Tracking and Winners](docs/results-tracking.md) | Saved tickets, X-factor snapshots, grading, and outcome records |
+| [Architecture](docs/architecture.md) | Shared server data, refresh schedules, and provider quota management |
 
-- Basketball and football performance analysis
-- Recent-game and historical matchup comparisons
-- Player statistics, odds, and alternate-line analysis
-- Injury and player-availability information
-- Sportsbook selection and multi-selection analysis
-- Recurring data retrieval and refresh controls
-- Reviewing historical results
-
-These features provide the context for this case study. Public examples will use fictional players, teams, and synthetic records.
-
-## Public Showcase Scope
-
-This repository is being built to demonstrate:
-
-1. **Problem:** Define the analytical need and user requirements.
-2. **Architecture:** Explain how retrieval, normalization, validation, and presentation connect.
-3. **Data:** Use synthetic records with documented fields and assumptions.
-4. **Workflow:** Show how a user moves from a question to an analytical result.
-5. **Analysis:** Demonstrate representative calculations with clear denominators.
-6. **Validation:** Check duplicates, missing values, sample sizes, and freshness.
-7. **Result:** Present reproducible sample findings and explain their limitations.
+The guides describe the private application. The runnable public example uses fictional records and demonstrates a separate historical calculation.
 
 ## Analytical Principles
 
@@ -62,17 +49,11 @@ This repository is being built to demonstrate:
 
 ## Publication Boundaries
 
-The public showcase will contain independently created documentation and synthetic examples.
+The public showcase contains independently created documentation and synthetic examples.
 
 It excludes production source code, credentials, API keys, private databases, provider data exports, scraped historical datasets, and third-party logos or graphics.
 
 Public examples are illustrative and should not be interpreted as an exact reproduction of the private implementation.
-
-## About
-
-Created by **Angel Guevara** as an independent personal project.
-
-CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
 
 ## Game Feed and Visual Signals
 
@@ -81,18 +62,6 @@ The Game Feed brings NBA/NFL matchups, player statistics, recent averages, injur
 Interactive Hot, Cold, and opponent-specific indicators connect users to the relevant Dive Deeper analysis. Explanatory labels clarify team streaks, touchdown history, limited samples, and NFL weather context.
 
 [Explore the Game Feed and visual signals](docs/game-feed.md)
-
-## Parlay Lab
-
-The private application includes an NBA/NFL Parlay Lab that combines historical player performance with available sportsbook markets.
-
-Users can select a sportsbook, choose a single-game or multi-game combination, apply a historical analysis strategy, replace individual legs, and open a matched sportsbook ticket for review.
-
-The workflow uses shared API data, scheduled refreshes, targeted updates near game time, and a globally limited manual refresh fallback. Historical hit rates describe past observations, not the probability that a generated parlay will win.
-
-[Explore the Parlay Lab workflow and design](docs/parlay-lab.md)
-
-Parlay Lab belongs to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
 
 ## Dive Deeper
 
@@ -103,6 +72,16 @@ Users can inspect recent games, comparable streaks, following-game outcomes, opp
 The private application retrieves data from the server. Historical observations and simulated estimates remain clearly distinguished.
 
 [Explore Dive Deeper analysis and game feed integration](docs/dive-deeper.md)
+
+## Parlay Lab
+
+The private application includes an NBA/NFL Parlay Lab that combines historical player performance with available sportsbook markets.
+
+Users can select a sportsbook, choose a single-game or multi-game combination, apply a historical analysis strategy, replace individual legs, and open a matched sportsbook ticket for review.
+
+The workflow uses shared API data, scheduled refreshes, targeted updates near game time, and a globally limited manual refresh fallback. Historical hit rates describe past observations, not the probability that a generated parlay will win.
+
+[Explore the Parlay Lab workflow and design](docs/parlay-lab.md)
 
 ## Probability Test — BETA
 
@@ -133,6 +112,8 @@ Broad scheduled refreshes, targeted updates near game time, and a globally limit
 [Explore the architecture and shared data workflows](docs/architecture.md)
 
 ## Run the Sample Analysis
+
+Parlay Lab belongs to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
 
 Requires Python 3. No external packages or API credentials are needed.
 
@@ -179,3 +160,9 @@ The following checks were run successfully on macOS:
 The two error checks used temporary CSV copies. The original sample dataset was unchanged. These checks cover the listed scenarios, not every acceptance criterion in the workflow document.
 
 This script demonstrates a historical calculation and basic validation. It does not retrieve live data, enforce API limits, check freshness, or predict future performance.
+
+## About
+
+Created by **Angel Guevara** as an independent personal project.
+
+CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
