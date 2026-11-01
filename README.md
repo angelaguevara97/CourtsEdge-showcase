@@ -1,18 +1,18 @@
-# CourtsEdge — Sports Analytics Product Showcase
+# CourtsEdge — Sports Analytics & Applied AI Product Showcase
 
-A public case study of an independent NBA/NFL analytics application built through AI-assisted development. CourtsEdge connects historical performance, matchup exploration, sportsbook markets, configurable parlay generation, and automated results tracking, with an experimental probability-modeling beta.
+A public case study of an independent NBA/NFL analytics application built through AI-assisted development. CourtsEdge connects historical performance, matchup exploration, sportsbook markets, configurable parlay generation, experimental probability modeling, automated results tracking, and a grounded LLM explanation layer.
 
-**Status:** The private application is working, with Probability Test under active beta development. This public showcase includes feature guides, architecture documentation, and a runnable synthetic Python example. Production source code and underlying datasets remain private.
+**Status:** The private application is working, with Probability Test under active beta development and Arian AI integrated as an explanatory LLM layer. This public showcase includes feature guides, architecture documentation, and a runnable synthetic Python example. Production source code, credentials, and underlying datasets remain private.
 
 ## The Problem
 
-Sports analysis often requires switching between multiple sources to review recent performance, matchups, player availability, and odds. Differences in identifiers, update times, and available history can make comparisons difficult.
+Sports analysis often requires switching between multiple sources to review recent performance, matchups, player availability, and odds. Differences in identifiers, update times, thresholds, and available history can make comparisons difficult.
 
 I created CourtsEdge to bring these analytical workflows into one application, with attention to the context and limitations behind the numbers.
 
 ## My Role
 
-I defined the product requirements, analytical rules, user workflows, interface behavior, and edge cases. I used ChatGPT, Codex, and Gemini to assist with implementation and troubleshooting.
+I defined the product requirements, analytical rules, user workflows, interface behavior, and edge cases. I used ChatGPT, Codex, and Gemini to assist with implementation and troubleshooting, and integrated Gemini at runtime for Arian AI's grounded explanation workflow.
 
 My contributions included:
 
@@ -20,10 +20,11 @@ My contributions included:
 - Defining recent-game and player-versus-team comparisons
 - Specifying historical hit-rate calculations and sample-size displays
 - Designing data-refresh behavior around freshness and API limits
-- Reviewing outputs and identifying unexpected behavior
+- Defining the context and boundaries for an LLM explanation layer
+- Reviewing outputs, testing edge cases, and identifying unexpected behavior
 - Iterating on the interface and analytical workflows
 
-This is a personal project, separate from my professional employment. AI-assisted implementation is part of the development process; this project does not represent professional machine-learning engineering experience.
+This is a personal project, separate from my professional employment. AI-assisted implementation is part of the development process; this project does not represent professional machine-learning engineering experience or model training.
 
 ## Explore the Application
 
@@ -33,8 +34,9 @@ This is a personal project, separate from my professional employment. AI-assiste
 | [Dive Deeper](docs/dive-deeper.md) | Streaks, following-game outcomes, opponent history, and simulations |
 | [Parlay Lab](docs/parlay-lab.md) | Historical strategies, sportsbook markets, alternate lines, and leg replacement |
 | [Probability Test — BETA](docs/probability-test.md) | Experimental probabilities, market comparisons, and evaluation methodology |
+| [Arian AI](docs/arian-ai.md) | Grounded Gemini/LLM explanations and separation from deterministic analysis |
 | [Results Tracking and Winners](docs/results-tracking.md) | Saved tickets, X-factor snapshots, grading, and outcome records |
-| [Architecture](docs/architecture.md) | Shared server data, refresh schedules, and provider quota management |
+| [Architecture](docs/architecture.md) | Shared server data, refresh schedules, provider quota management, and LLM flow |
 
 The guides describe the private application. The runnable public example uses fictional records and demonstrates a separate historical calculation.
 
@@ -43,15 +45,30 @@ The guides describe the private application. The runnable public example uses fi
 - Historical hit rates describe the selected sample; they are not calibrated forecasts.
 - Missing statistics must not automatically become zero.
 - Duplicate records must not inflate sample sizes.
-- Comparisons must use consistent players, markets, units, and time windows.
+- Comparisons must use consistent players, markets, units, thresholds, and time windows.
 - Small samples and stale data should be visible to the user.
 - Data available after an event begins must not be presented as pre-event evidence.
+- LLM commentary must remain distinct from deterministic calculations and experimental model estimates.
+
+## Arian AI — Grounded LLM Explanations
+
+Arian AI is CourtsEdge's Gemini-powered explanation layer for selected Parlay Lab and Probability Test legs.
+
+**CourtsEdge calculates; Arian interprets.**
+
+CourtsEdge first produces or retrieves the structured analytical context. Arian receives relevant supporting data for the selected leg and explains factors that strengthen, weaken, or limit the case in natural language.
+
+Arian does **not** replace CourtsEdge's historical calculations, Parlay Lab qualification rules, Probability Test methodology, market matching, or postgame grading. The LLM is an interpretation layer rather than a separate hidden prediction model.
+
+The Gemini credential is handled server-side in the private application. API keys, production prompts, private schemas, and application source code are not included in this repository.
+
+[Explore Arian AI and the LLM design](docs/arian-ai.md)
 
 ## Publication Boundaries
 
 The public showcase contains independently created documentation and synthetic examples.
 
-It excludes production source code, credentials, API keys, private databases, provider data exports, scraped historical datasets, and third-party logos or graphics.
+It excludes production source code, credentials, API keys, private databases, production prompts, provider data exports, scraped historical datasets, and third-party logos or graphics.
 
 Public examples are illustrative and should not be interpreted as an exact reproduction of the private implementation.
 
@@ -65,7 +82,7 @@ Interactive Hot, Cold, and opponent-specific indicators connect users to the rel
 
 ## Dive Deeper
 
-Dive Deeper connects interactive game-feed indicators with the analysis behind them. Selecting a player’s Hot, Cold, or opponent-specific signal opens the relevant matchup context and historical evidence.
+Dive Deeper connects interactive game-feed indicators with the analysis behind them. Selecting a player's Hot, Cold, or opponent-specific signal opens the relevant matchup context and historical evidence.
 
 Users can inspect recent games, comparable streaks, following-game outcomes, opponent history, and sample sizes. NBA and NFL analysis also includes injuries, matchup context, player and game simulations, and NFL positional defense and workload adjustments.
 
@@ -81,6 +98,8 @@ Users can select a sportsbook, choose a single-game or multi-game combination, a
 
 The workflow uses shared API data, scheduled refreshes, targeted updates near game time, and a globally limited manual refresh fallback. Historical hit rates describe past observations, not the probability that a generated parlay will win.
 
+Arian AI can explain the existing supporting context for a generated leg after selection; it does not choose or qualify the leg in place of Parlay Lab's documented rules.
+
 [Explore the Parlay Lab workflow and design](docs/parlay-lab.md)
 
 ## Probability Test — BETA
@@ -90,6 +109,8 @@ Probability Test is a working experimental NBA/NFL feature. Its current v2 basel
 It distinguishes historical hit rates, model estimates, market-implied probabilities, fair odds, and estimated edge.
 
 Pregame prediction records feed postgame grading and a dashboard with results by model version, sport, market, and probability bucket. Further calibration metrics and chronological validation remain development work. No validated accuracy or profitability is claimed.
+
+Arian AI may explain the supporting context around a Probability Test selection, but Gemini is not the source of the stored probability estimate or edge calculation.
 
 [Explore Probability Test and its evaluation workflow](docs/probability-test.md)
 
@@ -105,15 +126,15 @@ X-factor snapshots preserve signals such as Hot status, opponent history, streak
 
 ## Architecture and Shared Data
 
-CourtsEdge uses shared server data to connect historical analysis, matchup exploration, sportsbook markets, and postgame grading.
+CourtsEdge uses shared server data to connect historical analysis, matchup exploration, sportsbook markets, LLM explanations, and postgame grading.
 
-Broad scheduled refreshes, targeted updates near game time, and a globally limited manual fallback coordinate retrieval within provider quotas.
+Broad scheduled refreshes, targeted updates near game time, and a globally limited manual fallback coordinate retrieval within provider quotas. The LLM layer consumes selected supporting context after CourtsEdge analysis rather than replacing the underlying calculations.
 
 [Explore the architecture and shared data workflows](docs/architecture.md)
 
 ## Run the Sample Analysis
 
-Parlay Lab belongs to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
+Parlay Lab and Arian AI belong to the private application. The public Python sample below demonstrates a separate synthetic historical calculation.
 
 Requires Python 3. No external packages or API credentials are needed.
 
@@ -159,10 +180,10 @@ The following checks were run successfully on macOS:
 
 The two error checks used temporary CSV copies. The original sample dataset was unchanged. These checks cover the listed scenarios, not every acceptance criterion in the workflow document.
 
-This script demonstrates a historical calculation and basic validation. It does not retrieve live data, enforce API limits, check freshness, or predict future performance.
+This script demonstrates a historical calculation and basic validation. It does not retrieve live data, enforce API limits, check freshness, call an LLM, or predict future performance.
 
 ## About
 
 Created by **Angel Guevara** as an independent personal project.
 
-CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, or data provider.
+CourtsEdge is not affiliated with or endorsed by any sports league, team, sportsbook, data provider, Google, or Gemini.
