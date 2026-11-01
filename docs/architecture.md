@@ -1,8 +1,8 @@
 # CourtsEdge Architecture and Shared Data
 
-CourtsEdge connects NBA and NFL data retrieval, historical analysis, interactive exploration, sportsbook market matching, and saved-result grading.
+CourtsEdge connects NBA and NFL data retrieval, historical analysis, interactive exploration, sportsbook market matching, grounded LLM explanations, and saved-result grading.
 
-This guide describes the application at a functional level. Production source code, credentials, and underlying datasets remain private. The public repository contains documentation and a separate runnable synthetic analysis example.
+This guide describes the application at a functional level. Production source code, credentials, prompts, and underlying datasets remain private. The public repository contains documentation and a separate runnable synthetic analysis example.
 
 ## Server and Interface
 
@@ -12,11 +12,13 @@ Moving data retrieval and application logic to the server reduces the amount of 
 
 Information displayed in a browser can still be inspected or copied. Server-side processing protects private implementation details; it does not make displayed information inaccessible.
 
+The Gemini credential used by Arian AI is handled server-side rather than being intentionally exposed to the browser or public repository.
+
 ## Design for Additional Sports
 
 CourtsEdge currently supports NBA and NFL workflows. Its underlying application structure is designed to accommodate additional sports, including NHL, MLB, and MLS.
 
-Shared concepts include game selection, player and team identity, historical comparisons, contextual navigation, market matching, prediction snapshots, and result grading.
+Shared concepts include game selection, player and team identity, historical comparisons, contextual navigation, market matching, prediction snapshots, LLM explanation context, and result grading.
 
 Each additional sport requires its own data integration, statistical categories, analytical rules, market definitions, and grading behavior. The shared structure provides a foundation for expansion; it does not imply that NBA or NFL modeling assumptions transfer directly to other sports.
 
@@ -26,7 +28,7 @@ NHL, MLB, and MLS are expansion targets rather than currently supported applicat
 
 Sports statistics, game information, sportsbook markets, and relevant contextual data support multiple application features.
 
-The same player and matchup context connects the Game Feed, Dive Deeper, Parlay Lab, simulations, and Probability Test.
+The same player and matchup context connects the Game Feed, Dive Deeper, Parlay Lab, simulations, Probability Test, and Arian AI explanations.
 
 Saved selections then connect pregame analysis with postgame results.
 
@@ -41,6 +43,11 @@ flowchart TD
     C --> E
     B --> F["Probability Test BETA"]
     C --> F
+    E --> K["Selected leg + supporting context"]
+    F --> K
+    K --> L["Server-side Arian context builder"]
+    L --> M["Gemini LLM"]
+    M --> N["Grounded explanation"]
     E --> G["Saved pregame records"]
     F --> G
     B --> H["Postgame grading"]
@@ -50,6 +57,20 @@ flowchart TD
 ```
 
 Users can open features directly. The diagram does not imply that every user must follow one fixed sequence.
+
+## Deterministic Analysis and LLM Interpretation
+
+Arian AI is intentionally downstream of CourtsEdge's analytical workflows.
+
+Parlay Lab continues to qualify selections through its documented historical rules. Probability Test continues to produce its experimental quantitative outputs through its documented model methodology. Arian receives selected supporting context after those calculations exist and uses Gemini to explain the evidence in natural language.
+
+This separation supports a useful rule for the architecture:
+
+> **CourtsEdge calculates; Arian interprets.**
+
+The LLM is not the source of historical hit rates, Probability Test estimates, fair odds, market-implied probabilities, edge calculations, or postgame grades.
+
+[Read the Arian AI design guide](arian-ai.md)
 
 ## Shared Refresh Architecture
 
@@ -78,13 +99,15 @@ Refreshing can retrieve published markets; it cannot create a market that a prov
 
 Quote age and update timestamps help users distinguish saved data from current sportsbook availability. Scheduled retrieval does not guarantee that every stored price matches a sportsbook at every moment.
 
+LLM commentary inherits the limitations of the supporting context it receives. A fluent explanation does not make stale, missing, or limited data more reliable.
+
 ## Matching Context Across Sources
 
 Analytical workflows connect players, teams, games, statistical categories, and sportsbook markets.
 
 Market identity includes the sportsbook, event, player, category, side, and threshold. Different thresholds represent different events even when the player and statistical category match.
 
-The exact provider mappings and internal storage schema are implementation details outside this public guide.
+The exact provider mappings, internal storage schema, and production LLM context schema are implementation details outside this public guide.
 
 ## Game Eligibility and Results
 
@@ -108,13 +131,14 @@ The results guide explains finalized-ticket save boundaries, X-factor snapshots,
 
 Probability Test remains an active beta.
 
-Its experimental estimates share relevant application data while remaining distinct from observed historical frequencies.
+Its experimental estimates share relevant application data while remaining distinct from observed historical frequencies and from Arian's generated commentary.
 
-Calibration improvements, automated evaluation metrics, and model comparisons remain ongoing work. The presence of a data pipeline or saved predictions does not itself establish predictive validity.
+Calibration improvements, automated evaluation metrics, and model comparisons remain ongoing work. The presence of a data pipeline, LLM integration, or saved predictions does not itself establish predictive validity.
 
 ## Related Guides
 
 - [Parlay Lab](parlay-lab.md)
 - [Dive Deeper](dive-deeper.md)
 - [Probability Test BETA](probability-test.md)
+- [Arian AI](arian-ai.md)
 - [Results Tracking and Winners](results-tracking.md)
