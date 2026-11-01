@@ -1,19 +1,20 @@
 # Parlay Lab
 
-Parlay Lab is the configurable selection and analysis workflow in the private CourtsEdge NBA/NFL application. It combines historical player performance with available sportsbook markets, user-selected strategies, editable combinations, and an external sportsbook ticket handoff.
+Parlay Lab is the configurable selection and analysis workflow in the private CourtsEdge NBA/NFL application. It combines historical player performance with available sportsbook markets, user-selected strategies, editable combinations, an optional grounded Arian AI explanation, and an external sportsbook ticket handoff.
 
-This document describes the private application's functionality. The public showcase contains documentation and a separate synthetic analysis example; it does not include the production generator or live sportsbook integrations.
+This document describes the private application's functionality. The public showcase contains documentation and a separate synthetic analysis example; it does not include the production generator, production LLM prompts, or live sportsbook integrations.
 
 ## User Workflow
 
-1. Select a supported sportsbook or CourtEdge analysis-only mode.
+1. Select a supported sportsbook or CourtsEdge analysis-only mode.
 2. Choose Same Game Parlay (SGP) or a multi-game parlay.
 3. Select NBA or NFL.
 4. For SGP, choose one upcoming game from a list ordered by date and time.
 5. Select the number of legs and an analysis approach.
 6. Generate and review the selections.
-7. Replace individual legs, edit the combination, or regenerate it.
-8. Where supported, open a sportsbook ticket for final review.
+7. Review available supporting context and, where enabled, Arian AI commentary.
+8. Replace individual legs, edit the combination, or regenerate it.
+9. Where supported, open a sportsbook ticket for final review.
 
 Standard multi-game generation supports 2–6 legs. SGP selections remain within the chosen matchup.
 
@@ -26,6 +27,18 @@ Historical frequency is calculated against the specific condition being evaluate
 Available approaches include historical consistency tiers, season-only analysis, history versus price, longer odds, and touchdown-focused selections. “Feeling lucky?” provides a more aggressive combination mode using historical qualification rules for individual legs.
 
 Historical hit rates describe past observations. They are not predicted win probabilities for individual selections or complete parlays. Strategy thresholds and sample sizes must be interpreted together.
+
+## Arian AI Explanation Layer
+
+Arian AI uses Gemini to explain the existing supporting context for a generated leg. It is downstream of Parlay Lab's selection logic.
+
+Parlay Lab first applies its documented strategy, eligibility, historical, sportsbook, and market-matching rules. For an already selected leg, the server can assemble relevant context such as the player, opponent, market, threshold, historical results, sample size, recent performance, averages, opponent history, and applicable limitations. Arian then turns that structured context into natural-language commentary.
+
+**Arian does not replace Parlay Lab's qualification rules or independently select the leg.** Its role is explanation and synthesis.
+
+The LLM should not invent missing statistics, silently substitute a different threshold, or convert historical frequency into a guaranteed prediction.
+
+[Read the Arian AI design guide](arian-ai.md)
 
 ## Strategy Rules and Game Windows
 
@@ -117,6 +130,6 @@ A Winners display is not a complete performance evaluation. Measuring strategy r
 
 ## What This Demonstrates
 
-The project demonstrates requirements definition, historical analysis, API orchestration, market matching, shared caching, request prioritization, exception handling, state management, and user-controlled workflows.
+The project demonstrates requirements definition, historical analysis, API orchestration, market matching, shared caching, request prioritization, exception handling, state management, grounded LLM integration, and user-controlled workflows.
 
-I defined the product behavior and analytical rules, used AI-assisted development to help implement the application, and reviewed outputs and application behavior.
+I defined the product behavior, analytical rules, and Arian context boundaries, used AI-assisted development to help implement the application, and reviewed outputs and application behavior.
